@@ -184,7 +184,8 @@ def get_user_input(prefill_data=None):
         action = Prompt.ask(
             "Start with?",
             choices=["new", "history", "load", "env", "quit"],
-            default="new"
+            default="new",
+            case_sensitive=False
         )
         if action == "quit":
             return "quit"
@@ -203,12 +204,13 @@ def get_user_input(prefill_data=None):
     method = Prompt.ask(
         "Enter HTTP method",
         choices=method_choices,
-        default=default_method
+        default=default_method,
+        case_sensitive=False
     ).upper()
 
     default_url = substitute_env_vars(prefill_data.get("url", "")) if prefill_data else ""
     url_prompt_text = "Enter the full API URL (e.g., {{base_url}}/items)"
-    url = Prompt.ask(url_prompt_text, default=default_url)
+    url = Prompt.ask(url_prompt_text)
     url = substitute_env_vars(url)
 
     re_prompt_default_url = substitute_env_vars(prefill_data.get("url", "")) if prefill_data else ""
